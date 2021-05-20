@@ -1,4 +1,12 @@
 package com.example.roomdatabaseass
 
-class MainViewModel {
+import androidx.lifecycle.ViewModel
+
+class MainViewModel(private val repository:Repository): ViewModel() {
+
+
+
+
+    
+
 }

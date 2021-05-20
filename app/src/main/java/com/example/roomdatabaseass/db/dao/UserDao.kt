@@ -8,8 +8,8 @@ import com.example.roomdatabaseass.db.entity.UserEntity
 @Dao
 interface UserDao {
     @Insert
-    fun insertUser(user:UserEntity):Boolean
+    fun insertUser(email:String,user:UserEntity)
 
-    @Query("SELECT EXIST()")
-    fun checkIfUserExist(user: UserEntity):Boolean
+    @Query("SELECT EXISTS(SELECT * FROM user WHERE email =:email)")
+    fun checkIfUserExist(email:String):Boolean
 }
