@@ -5,13 +5,9 @@ import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
 
-@Entity(tableName="user",
-    foreignKeys =[ForeignKey(
-        entity = ContactEntity::class,
-        parentColumns =["email"],
-        childColumns = ["email"] )]
+@Entity(tableName="user", indices = [Index(value = ["email"],
+    unique = true)]
 )
-
 data class UserEntity(
     @PrimaryKey
     val email: String,

@@ -9,7 +9,7 @@ import com.example.roomdatabaseass.db.dao.UserDao
 import com.example.roomdatabaseass.db.entity.ContactEntity
 import com.example.roomdatabaseass.db.entity.UserEntity
 
-@Database(entities = [UserEntity::class, ContactEntity::class],version = 1)
+@Database(entities = [UserEntity::class, ContactEntity::class],version = 1,exportSchema = false)
 abstract class ContactDatabase: RoomDatabase() {
     abstract fun userDao(): UserDao
 

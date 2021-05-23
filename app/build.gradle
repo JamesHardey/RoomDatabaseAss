@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 30
@@ -16,7 +17,7 @@ android {
 
 
     defaultConfig {
-        applicationId "com.example.connectapptointernet"
+        applicationId "com.example.roomdatabaseass"
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
@@ -31,7 +32,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    viewBinding{
+    viewBinding {
         enabled true
     }
 
@@ -39,7 +40,9 @@ android {
 
 dependencies {
     def lifecycle_version = "2.3.1"
+    def room_version = "2.3.0"
     def arch_version = "2.1.0"
+
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -54,6 +57,15 @@ dependencies {
     implementation 'com.squareup.moshi:moshi-kotlin:1.12.0'
 
     implementation "com.squareup.retrofit2:converter-moshi:2.9.0"
+
+    implementation("androidx.room:room-runtime:$room_version")
+    implementation 'androidx.annotation:annotation:1.1.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+
+    kapt("androidx.room:room-compiler:$room_version")
+
+    implementation 'br.com.simplepass:loading-button-android:1.14.0'
 
 
     //Recyclerview
@@ -71,9 +83,9 @@ dependencies {
     implementation "io.coil-kt:coil:1.2.1"
 
 
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-    implementation 'androidx.room:room-runtime:2.3.0'
-    annotationProcessor 'androidx.room:room-compiler:2.3.0'
+
 }
