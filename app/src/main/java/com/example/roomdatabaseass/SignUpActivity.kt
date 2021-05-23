@@ -23,8 +23,10 @@ class SignUpActivity : AppCompatActivity() {
     private lateinit var imageview:ImageView
     private lateinit var loginIntent :Intent
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_sign_up)
         repository = Repository(this)
         loginIntent = Intent(this@SignUpActivity, LoginActivity::class.java)
@@ -45,12 +47,13 @@ class SignUpActivity : AppCompatActivity() {
         }
 
 
-
         //repository.addUser(UserEntity("james@yahoo.com","James","1234"))
         repository.getAllUsers().observe(this, { list ->
 
-            Log.d("Name", list[0].email.toString())
+            Log.d("Nameeeeeee", list[0].email.toString())
         })
+
+        repository.deleteUser(UserEntity("jamesade646@gmail.com","",""))
 
         register.setOnClickListener {
             register()
@@ -58,7 +61,7 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun checkIfValid(email: TextInputEditText): Boolean {
-        return Patterns.EMAIL_ADDRESS.matcher(email.toString()).matches()
+        return Patterns.EMAIL_ADDRESS.matcher(email.text.toString()).matches()
     }
 
     private fun click() {
@@ -77,10 +80,10 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun confirmNotEmpty(): Boolean {
 
-        return (email.toString().isEmpty() or
-            name.toString().isEmpty() or
-            password1.toString().isEmpty() or
-            password2.toString().isEmpty()
+        return (email.text.toString().isEmpty() or
+            name.text.toString().isEmpty() or
+            password1.text.toString().isEmpty() or
+            password2.text.toString().isEmpty()
         )
 
 
@@ -93,13 +96,13 @@ class SignUpActivity : AppCompatActivity() {
     private fun register(){
         if(!confirmNotEmpty()){
             if(checkIfValid(email)){
-                if(!checkIfExist(email.toString())){
-                    if(confirmPassMatch(password1.toString(),password2.toString())){
+                if(!checkIfExist(email.text.toString())){
+                    if(confirmPassMatch(password1.text.toString(),password2.text.toString())){
                         addUser(
                             UserEntity(
-                                email.toString(),
-                                name.toString(),
-                                password1.toString()
+                                email.text.toString(),
+                                name.text.toString(),
+                                password1.text.toString()
                             )
                         )
                         click()

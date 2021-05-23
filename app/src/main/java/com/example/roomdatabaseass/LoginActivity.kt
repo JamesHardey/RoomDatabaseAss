@@ -19,7 +19,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var loginBtn: Button
     private val repository = Repository(this)
     private lateinit var mainIntent:Intent
-
+    private var confirm:Boolean? =null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,29 +31,37 @@ class LoginActivity : AppCompatActivity() {
         loginBtn = findViewById(R.id.cirLoginButton)
 
         loginBtn.setOnClickListener {
-            if(checkUser()){
-                login(email)
+
+            while(confirm==null){
+                loginBtn.isEnabled=checkUser()
             }
+
+
+
+
         }
 
     }
 
     private fun checkUser():Boolean{
-        val myEmail = email.toString()
-        val myPass = pass.toString()
+        val myEmail = email.text.toString()
+        val myPass = pass.text.toString()
         val user =repository.getUserByEmail(myEmail)
 
         return if(user!=null){
             if((user.email.equals(myEmail,false)) and (user.password==myPass) ){
                 display("Login Successful")
+                confirm=true
                 true
             } else{
                 display("Incorrect Password or Email")
+                confirm=false
                 false
             }
         }
         else{
             display("Unknown Email address")
+            confirm=false
             false
         }
 
@@ -61,7 +69,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun login(email1:TextInputEditText){
-        val email = email1.toString()
+        val email = email1.text.toString()
         mainIntent.putExtra("email",email)
         startActivity(mainIntent)
     }
